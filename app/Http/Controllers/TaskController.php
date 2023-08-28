@@ -12,30 +12,23 @@ use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {
+    // function getColorHex($value) {
+    //     switch ($value) {
+    //         case 'Arta':
+    //             return '#deebff';
+    //         case 'Syifa':
+    //             return '#eae6ff';
+    //         case 'Wahyu':
+    //             return '#e1dddf';
+    //         case 'Alfina':
+    //             return '#d0c8ec';
+    //         default:
+    //             return '#f3f3f3';
+    //     }
+    // }
+
     public function get() {
         // $data = Task::query()->orderBy('created_at', 'desc')->get();
-        // function getColorHex($value) {
-        //     switch ($value) {
-        //         case 'Arta':
-        //             return '#deebff';
-        //         case 'Syifa':
-        //             return '#eae6ff';
-        //         case 'Wahyu':
-        //             return '#e1dddf';
-        //         case 'Alfina':
-        //             return '#d0c8ec';
-        //         default:
-        //             return '#f3f3f3';
-        //     }
-        // }
-        // foreach ($data as &$task) {
-        //     $task['color'] = getColorHex($task['person']); 
-        // }
-        // return Response::success([
-        //     'data' => $data,
-        // ]);
-        $data = Task::query()->orderBy('created_at', 'desc')->get();
-    
         function getColorHex($value) {
             switch ($value) {
                 case 'Arta':
@@ -50,6 +43,13 @@ class TaskController extends Controller
                     return '#f3f3f3';
             }
         }
+        // foreach ($data as &$task) {
+            //     $task['color'] = getColorHex($task['person']); 
+        // }
+        // return Response::success([
+        //     'data' => $data,
+        // ]);
+        $data = Task::query()->orderBy('created_at', 'desc')->get();
 
         // Group tasks by status
         $groupedData = [
@@ -75,6 +75,35 @@ class TaskController extends Controller
             'data' => $result,
         ]);
     }
+
+    public function getList() {
+        
+        $data = Task::query()->orderBy('created_at', 'desc')->get();
+    
+        // function getColorHex($value) {
+        //     switch ($value) {
+        //         case 'Arta':
+        //             return '#deebff';
+        //         case 'Syifa':
+        //             return '#eae6ff';
+        //         case 'Wahyu':
+        //             return '#e1dddf';
+        //         case 'Alfina':
+        //             return '#d0c8ec';
+        //         default:
+        //             return '#f3f3f3';
+        //     }
+        // }
+
+        // foreach ($data as $task) {
+        //     $task['color'] = getColorHex($task['person']);
+        // }
+
+        return Response::success([
+            'data' => $data,
+        ]); 
+    }
+
     public function store(Request $request, Task $fTask)
     {
 

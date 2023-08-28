@@ -28,6 +28,10 @@ Route::group(['prefix' => 'task'], function () {
     Route::delete('{id}', [TaskController::class, 'destroy']);
 });
 
+Route::group(['prefix' => 'task-list'], function () {
+    Route::get('', [TaskController::class, 'getList']);
+});
+
 Route::group(['prefix' => 'sub-task'], function () {
     Route::post('', [SubTaskController::class, 'store']);
     Route::get('', [SubTaskController::class, 'get']);
