@@ -58,22 +58,32 @@ class TaskController extends Controller
             'IN PROGRESS' => ['name' => 'IN PROGRESS', 'items' => []],
             'DONE' => ['name' => 'DONE', 'items' => []],
         ];
-        
         foreach ($data as $task) {
             $task['color'] = getColorHex($task['person']);
             $groupedData[$task['status']]['items'][] = $task;
         }
         
-        $result = [];
-        $index = 1;
-        foreach ($groupedData as $status => $group) {
-            $result[$index] = $group;
-            $index++;
-        }
-
+        $result = array_values($groupedData); // Re-index the array with numeric keys
+        
         return Response::success([
             'data' => $result,
         ]);
+        
+        // foreach ($data as $task) {
+        //     $task['color'] = getColorHex($task['person']);
+        //     $groupedData[$task['status']]['items'][] = $task;
+        // }
+        
+        // $result = [];
+        // $index = 1;
+        // foreach ($groupedData as $status => $group) {
+        //     $result[$index] = $group;
+        //     $index++;
+        // }
+
+        // return Response::success([
+        //     'data' => $result,
+        // ]);
     }
 
     public function getList() {
