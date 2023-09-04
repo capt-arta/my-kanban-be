@@ -89,25 +89,6 @@ class TaskController extends Controller
     public function getList() {
         
         $data = Task::query()->orderBy('created_at', 'desc')->get();
-    
-        // function getColorHex($value) {
-        //     switch ($value) {
-        //         case 'Arta':
-        //             return '#deebff';
-        //         case 'Syifa':
-        //             return '#eae6ff';
-        //         case 'Wahyu':
-        //             return '#e1dddf';
-        //         case 'Alfina':
-        //             return '#d0c8ec';
-        //         default:
-        //             return '#f3f3f3';
-        //     }
-        // }
-
-        // foreach ($data as $task) {
-        //     $task['color'] = getColorHex($task['person']);
-        // }
 
         return Response::success([
             'data' => $data,
@@ -137,6 +118,7 @@ class TaskController extends Controller
 
             $validatedData = $request->only($fTask->getFillable());
             $validatedData['status'] = 'REQUESTED';
+            $validatedData['progress'] = 0;
             $data = Task::create($validatedData);
 
             DB::commit();
@@ -162,6 +144,7 @@ class TaskController extends Controller
                 'start_date' => $task->start_date,
                 'end_date' => $task->end_date,
                 'status' => $task->status,
+                'progress' => $task->progress,
                 'sub_task' => $subTask,
             ];
             return Response::success([
@@ -181,6 +164,7 @@ class TaskController extends Controller
             'person' => 'nullable|string',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date',
+            'progress' => 'nullable|numeric|max:100',
         ]);
 
         if ($validator->fails()) {
