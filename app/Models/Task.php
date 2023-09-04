@@ -26,6 +26,10 @@ class Task extends Model
         'updated_at'
     ];
 
+    protected $primaryKey = 'id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     public function subTasks()
     {
         return $this->hasMany(SubTask::class, 'task_id');
